@@ -1,0 +1,138 @@
+#importing tkinter module
+from  tkinter import *
+from tkinter import messagebox
+import time
+root=Tk()
+root.title('management System')
+root.geometry("1020x600")
+Label(root,text='restaurent',font='Arial 20 underline',bg='light green').grid(row=0,column=4)
+#images on top
+p=PhotoImage(file='giphy.gif')
+Label(root,image=p).grid(row=0,column=1,columnspan=1)
+p2=PhotoImage(file='fries.gif')
+Label(root,image=p2).grid(row=0,column=2,columnspan=1)
+p3=PhotoImage(file='drink.gif')
+Label(root,image=p3).grid(row=0,column=5,columnspan=1)
+p4=PhotoImage(file='sandwich.gif')
+Label(root,image=p4).grid(row=0,column=3,columnspan=1)
+p5=PhotoImage(file='soup.gif')
+Label(root,image=p5).grid(row=0,column=6,columnspan=2)
+p6=PhotoImage(file='noodle.gif')
+Label(root,image=p6).grid(row=0,column=8,columnspan=2)
+#Local time based on your system timezone
+localtime=time.asctime(time.localtime(time.time()))
+Label(root,text=localtime,font='Arial 10 underline',bg='light green').grid(row=1,column=4)
+bill=StringVar()
+#billiing setup 
+Label(root,text='bill no.',font='Arial 10 bold').grid(row=2,column=2)
+Entry(root,bd=5,bg='light green',text=bill,justify=RIGHT,width=4).grid(row=2,column=3)
+pizza=IntVar()
+Label(root,text='Pizza',font='Arial 12 bold', bd=16).grid(row=5,column=2)
+Entry(root,bd=8,bg='light green',text=pizza,justify=RIGHT).grid(row=5,column=3)
+p_b=IntVar()
+Label(root,text='Paav Bhaji',font='Arial 12 bold',bd=16).grid(row=6,column=2)
+Entry(root,bd=8,bg='light green',text=p_b,justify=RIGHT).grid(row=6,column=3)
+noodle=IntVar()
+Label(root,text='Noodles',font='Arial 12 bold',bd=16).grid(row=7,column=2)
+Entry(root,bd=8,bg='light green',text=noodle,justify=RIGHT).grid(row=7,column=3)
+f_c=IntVar()
+Label(root,text='fried chicken',font='Arial 12 bold',bd=16).grid(row=8,column=2)
+Entry(root,bd=8,bg='light green',text=f_c,justify=RIGHT).grid(row=8,column=3)
+burger=IntVar()
+Label(root,text='Burger',font='Arial 12 bold',bd=16).grid(row=9,column=2)
+Entry(root,bd=8,bg='light green',text=burger,justify=RIGHT).grid(row=9,column=3)
+sandwich=IntVar()
+Label(root,text='Sandwich',font='Arial 12 bold',bd=16).grid(row=10,column=2)
+Entry(root,bd=8,bg='light green',text=sandwich,justify=RIGHT).grid(row=10,column=3)
+drink=IntVar()
+Label(root,text='Drinks',font='Arial 12 bold',bd=16).grid(row=5,column=4)
+Entry(root,bd=8,bg='light green',text=drink,justify=RIGHT).grid(row=5,column=5)
+cost=IntVar()
+Label(root,text='cost of meal',font='Arial 12 bold',bd=16).grid(row=6,column=4)
+Entry(root,bd=8,bg='light green',text=cost,justify=RIGHT).grid(row=6,column=5)
+service=IntVar()
+Label(root,text='service charge',font='Arial 12 bold',bd=16).grid(row=7,column=4)
+Entry(root,bd=8,bg='light green',text=service,justify=RIGHT).grid(row=7,column=5)
+state=IntVar()
+Label(root,text='state tax',font='Arial 12 bold',bd=16).grid(row=8,column=4)
+Entry(root,bd=8,bg='light green',text=state,justify=RIGHT).grid(row=8,column=5)
+sub=IntVar()
+Label(root,text='sub total',font='Arial 12 bold',bd=16).grid(row=9,column=4)
+Entry(root,bd=8,bg='light green',text=sub,justify=RIGHT).grid(row=9,column=5)
+total=IntVar()
+Label(root,text='total cost',font='Arial 12 bold',bd=16).grid(row=10,column=4)
+Entry(root,bd=8,bg='light green',text=total,justify=RIGHT).grid(row=10,column=5)
+#calculation of bill
+def total1():
+    p=float(pizza.get())*60
+    f=float(p_b.get())*10
+    n=float(noodle.get())*20
+    s=float(f_c.get())*25
+    b=float(burger.get())*45
+    sa=float(sandwich.get())*25
+    d=float(drink.get())*20
+    cost_meal=(p+f+n+s+b+sa+d)
+    ser_charge=((p+f+n+s+b+sa+d)/98)
+    state_tax=((p+f+n+b+s+sa+d)*0.8)
+    sub_total=(p+f+s+d+b+sa+n)
+    total_cost=(ser_charge+state_tax+sub_total)
+    cost.set(cost_meal)
+    service.set(ser_charge)
+    state.set(state_tax)
+    sub.set(sub_total)
+    total.set(total_cost)
+Button(root,text='Total',bd=5,fg='black',bg='light green',font='Arial 12 bold',command=total1).grid(row=12,column=2)
+def reset():
+    aa=askyesno('confirm','are you sure want to reset')
+    if(aa==True):
+        bill.set(" ")
+        pizza.set(" 0")
+        p_b.set(" 0")
+        noodle.set("0")
+        f_c.set('0')
+        burger.set("0")
+        sandwich.set("0")
+        drink.set("0")
+        cost.set("0")
+        service.set("0")
+        state.set("0")
+        sub.set("0")
+        total.set("")
+Button(root,text='reset',bd=5,fg='black',bg='light green',font='Arial 12 bold',command=reset).grid(row=12,column=3)
+def Exit():
+    a=askyesno('confirm',"are you sure want to exit")
+    if(a==True): 
+        root.destroy()
+def printt():
+    showerror('error',"oop's! something wrong")
+
+Button(root,text='exit',bd=5,fg='black',bg='light green',font='Arial 12 bold',command=Exit).grid(row=12,column=4)
+Button(root,text='print',fg='black',font='Arial 10 bold',bg='light green',command=printt).grid(row=12,column=9)
+e=Entry(root,font="Arial 25 bold",width=16,bd=10,bg='light green',justify='right')
+e.grid(row=5,column=6,columnspan=4)
+def add(x):
+    e.insert(16,x)
+def result():
+    r=eval(e.get())
+    e.delete(0,END)
+    e.insert(16,r)
+def clear():
+    e.delete(0,END)
+#code of calculator
+Button(root,text='7',font='Arial 12 bold',width=5,bd=5,height=2,command=lambda:add(7)).grid(row=6,column=6,sticky=N+S+E+W)
+Button(root,text='8',font='Arial 12 bold',width=5,bd=5,height=2,command=lambda:add(8)).grid(row=6,column=7,sticky=N+S+E+W)
+Button(root,text='9',font='Arial 12 bold',width=5,bd=5,height=2,command=lambda:add(9)).grid(row=6,column=8,sticky=N+S+E+W)
+Button(root,text='+',font='Arial 12 bold',width=5,bd=5,height=2,command=lambda:add('+')).grid(row=6,column=9,sticky=N+S+E+W)
+Button(root,text='4',font='Arial 12 bold',width=5,bd=5,height=2,command=lambda:add(4)).grid(row=7,column=6,sticky=N+S+E+W)
+Button(root,text='5',font='Arial 12 bold',width=5,bd=5,height=2,command=lambda:add(5)).grid(row=7,column=7,sticky=N+S+E+W)
+Button(root,text='6',font='Arial 12 bold',width=5,bd=5,height=2,command=lambda:add(6)).grid(row=7,column=8,sticky=N+S+E+W)
+Button(root,text='-',font='Arial 12 bold',width=5,bd=5,height=2,command=lambda:add('-')).grid(row=7,column=9,sticky=N+S+E+W)
+Button(root,text='1',font='Arial 12  bold',width=5,bd=5,height=2,command=lambda:add(1)).grid(row=8,column=6,sticky=N+S+E+W)
+Button(root,text='2',font='Arial 12 bold',width=5,bd=5,height=2,command=lambda:add(2)).grid(row=8,column=7,sticky=N+S+E+W)
+Button(root,text='3',font='Arial 12 bold',width=5,bd=5,height=2,command=lambda:add(3)).grid(row=8,column=8,sticky=N+S+E+W)
+Button(root,text='*',font='Arial 12 bold',width=5,bd=5,height=2,command=lambda:add('*')).grid(row=8,column=9,sticky=N+S+E+W)
+Button(root,text='0',font='Arial 12 bold',width=5,bd=5,height=2,command=lambda:add(0)).grid(row=9,column=6,sticky=N+S+E+W)
+Button(root,text='c',font='Arial 12 bold',width=5,bd=5,height=2,command=clear).grid(row=9,column=7,sticky=N+S+E+W)
+Button(root,text='/',font='Arial 12 bold',width=5,bd=5,height=2,command=lambda:add('/')).grid(row=9,column=8,sticky=N+S+E+W)
+Button(root,text='=',font='Arial 12 bold',width=5,bd=5,height=2,command=result).grid(row=9,column=9,sticky=N+S+E+W)
+root.mainloop()
